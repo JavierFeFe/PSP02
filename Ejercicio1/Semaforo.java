@@ -7,7 +7,7 @@ import java.util.Random;
  */
 public class Semaforo {
     private boolean libre = true; //Estado inicial
-    private final Random ascii = new Random();
+    private final Random rmd = new Random();
     private final List<Character> letras = new ArrayList<Character>();//ArrayList donde se almacenarán los carácteres del buffer
     public synchronized void recogeCaracter() {
         if (libre && letras.size() > 0) { //Si el estado esta libre y el tamaño del buffer es mayor a 0 recogemos un carácter
@@ -30,7 +30,7 @@ public class Semaforo {
         notify();
     }
     public synchronized void depositaCaracter() {
-        char  letra = (char) (ascii.nextInt(26) + 65);//Generamos un caracter de letra mayúscula aleatorio
+        char  letra = (char) (rmd.nextInt(26) + 65);//Generamos un caracter de letra mayúscula aleatorio
         if (libre && letras.size() < 6) { //Si el estado está libre  y el buffer es menor a 6 podemos depositar un nuevo carácter en el buffer
             libre = false;//Antes de empezar cambiamos el estado a ocupado
             letras.add(letra);
