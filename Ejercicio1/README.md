@@ -9,9 +9,30 @@ public class Semaforo {
     private final List<Character> letras = new ArrayList<Character>();//ArrayList donde se almacenarán los carácteres del buffer
 
 ```
-*Creamos la clase semáforo y definimos sus variables
+*Creamos la clase semáforo y definimos sus variables  
 
-
+```Java
+public synchronized void recogeCaracter() {
+        if (libre && letras.size() > 0) { //Si el estado esta libre y el tamaño del buffer es mayor a 0 recogemos un carácter
+            libre = false;//Antes de recoger cambiamos el estado a ocupado
+            System.out.println("Recogido el carácter " + letras.get(0) + " del buffer (" + (letras.size() -1) + ")");
+            letras.remove(0);//Eliminamos el carácter del buffer
+        } else {
+            while (!libre || letras.isEmpty()) {//Mientras el estado está ocupado o el buffer vacío el hilo se queda en espera
+                try {
+                    wait(100);//Esperamos la liberación del hilo, si en 0.1 segundo no recibe la liberación comprueba las condiciones del bucle
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            libre=false;//Si salimos del bucle quiere decir que es posible la lectura por lo que cambiamos el estado antes de realizar la operación
+            System.out.println("Recogido el carácter " + letras.get(0) + " del buffer (" + (letras.size() -1) + ")");
+            letras.remove(0);
+        }
+        libre=true;//Si llegamos aquí quiere decir que se finalizó el hilo, por lo que podemos liberar el estado y dar aviso al resto de hilos.
+        notify();
+}
+````
 
 ![image](https://user-images.githubusercontent.com/44543081/49691338-24485900-fb40-11e8-8a39-5ab0d1f2371f.png)  
 ![image](https://user-images.githubusercontent.com/44543081/49691348-4a6df900-fb40-11e8-94e7-91c46b8e8af5.png)  
