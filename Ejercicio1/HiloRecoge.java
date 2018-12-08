@@ -14,7 +14,7 @@ public class HiloRecoge extends Thread {
     }
     @Override
     public void run() {
-       smf.accesoLeer();
+       smf.recogeCaracter();
 
     }
 }

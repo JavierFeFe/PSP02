@@ -14,6 +14,6 @@ public class HiloDeposita extends Thread {
     }
     @Override
     public void run() {
-    	smf.accesoEscribir();
+    	smf.depositaCaracter();
     }
 }
