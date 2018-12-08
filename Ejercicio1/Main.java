@@ -1,7 +1,7 @@
 package Ejercicio1;
 /**
  *
- * @author Javier Fern·ndez Ferrol
+ * @author Javier Fern√°ndez Ferrol
  */
 public class Main {
     /**
@@ -14,11 +14,11 @@ public class Main {
             new HiloDeposita(smf).start();
         }
         try {
-			Thread.sleep(1000);//Espero 1000ms para dar tiempo a llenar los buffer y comprobar que no sobrepasa el lÌmite
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Thread.sleep(1000);//Espero 1000ms para dar tiempo a llenar los buffer y comprobar que no sobrepasa el l√≠mite
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
         for (int i = 0; i < 15; i++) {//Creamos 15 hilos para retirar caracteres del buffer
             new HiloRecoge(smf).start();
         }
