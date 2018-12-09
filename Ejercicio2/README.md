@@ -163,3 +163,7 @@ public class Main {
 }
 ````
 *Clase con el método main que hace una llamada a la clase Cena, introduciendo en ella un array de Strings con los nombres de los filósofos (el número de filósofos debrería ser siempre superior a 3)*
+![image](https://user-images.githubusercontent.com/44543081/49699937-eeef4a00-fbd7-11e8-8a4e-f7dd70c6d259.png)  
+*Muestra del resultado por pantalla*
+
+**Posibles mejoras: Crear una cola de comensales para asegurarse que siempre se dejará comer al comensal que lleva más tiempo esperando**
