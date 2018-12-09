@@ -15,7 +15,7 @@ public class Semaforo {
     public synchronized void recogeCaracter() {
         if (libre && letras.size() > 0) { //Si el estado esta libre y el tamaño del buffer es mayor a 0 recogemos un carácter
             libre = false;//Antes de recoger cambiamos el estado a ocupado
-            System.out.println("Recogido el carácter " + letras.get(0) + " del buffer (" + (letras.size() -1) + ")");
+            System.out.println("Recogido el carácter " + letras.get(letras.size()-1) + " del buffer (" + (letras.size() -1) + ")");
             letras.remove(0);//Eliminamos el carácter del buffer
         } else {
             while (!libre || letras.isEmpty()) {//Mientras el estado está ocupado o el buffer vacío el hilo se queda en espera
@@ -26,8 +26,8 @@ public class Semaforo {
                 }
             }
             libre=false;//Si salimos del bucle quiere decir que es posible la lectura por lo que cambiamos el estado antes de realizar la operación
-            System.out.println("Recogido el carácter " + letras.get(0) + " del buffer (" + (letras.size() -1) + ")");
-            letras.remove(0);
+            System.out.println("Recogido el carácter " + letras.get(letras.size()-1) + " del buffer (" + (letras.size() -1) + ")");
+            letras.remove(letras.size()-1);
         }
         libre=true;//Si llegamos aquí quiere decir que se finalizó el hilo, por lo que podemos liberar el estado y dar aviso al resto de hilos.
         notify();
