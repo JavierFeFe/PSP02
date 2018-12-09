@@ -5,7 +5,7 @@
 
 El problema es el siguiente: Cinco filósofos se sientan alrededor de una mesa y pasan su vida comiendo y pensando. Cada filósofo tiene un plato de arroz chino y un palillo a la izquierda de su plato. Cuando un filósofo quiere comer arroz, cogerá los dos palillos de cada lado del plato y comerá. El problema es el siguiente: establecer un ritual (algoritmo) que permita comer a los filósofos. El algoritmo debe satisfacer la exclusión mutua (dos filósofos no pueden emplear el mismo palillo a la vez), además de evitar el interbloqueo y la inanición. 
 
-´´´´Java
+````Java
 public class Mesa extends Semaphore{
 	/**
 	 * 
@@ -28,17 +28,17 @@ public class Mesa extends Semaphore{
     	return palillos;
     }
 }
-´´´´
+````
 *Creo una clase que hereda de Semaphore donde almacenaremos datos sobre los filósofos y sobre los palillos utilizados*  
-´´´´Java
+````Java
 public class Filosofo extends Thread {
     private final Mesa smf;//La clase mesa nos servirá como semáforo
     private final Random rmd = new Random();//Para generar número aleatorios
     private int cubiertoDerecha;
     private int cubiertoIzquierda;
-´´´´
+````
 *Creo la clase Filosofo con un semáforo asociado y varias variables que utilizaremos más adelante.*  
-´´´´Java
+````Java
     /**
      *
      * @param smf
@@ -49,9 +49,9 @@ public class Filosofo extends Thread {
     	cubiertoDerecha = smf.getFilosofos().indexOf(getName());//Almaceno el valor de la posición del palillo de la derecha
     	cubiertoIzquierda = cubiertoDerecha-1;//Almaceno el valor de la posición del palillo de la izquierda
     }
-´´´´
+````
 *Creo un constructor del que obtendré el nombre del filósofo y la posición de los cubiertos que utilizará*  
-´´´´Java
+````Java
     public void entraCena() {
     	System.out.println(getName() + " toma su asiento...");
     	try {
@@ -70,9 +70,9 @@ public class Filosofo extends Thread {
     	}
     	estaPensando();//El filósofo empieza a pensar	
     }
-´´´´
+````
 *Creo un método entraCena que se encargará de verificar si la "Mesa" está completa para iniciar el hilo*  
-´´´´Java
+````Java
     private void estaPensando() {
     	System.out.println(getName() + " está pensando...");
     	try {
@@ -83,9 +83,9 @@ public class Filosofo extends Thread {
 		}
     	estaHambriento();//El filósofo está hambriento
     }
-´´´´
+````
 *Método simple que generará una espera aleatoria para simular que el filósofo está "Pensando"*  
-´´´´Java
+````Java
     private void estaHambriento() {
     	System.out.println(getName() + " está hambriento...");
     	if (cubiertoIzquierda == -1) {
@@ -101,9 +101,9 @@ public class Filosofo extends Thread {
     	}
     	estaComiendo();//Si salimos del bucle quiere decir que podemos comer  	
     }
-´´´´
+````
 *Este método se iniciará despues de que el filósofo termine de pensar y se encargará de determinar si están disponibles los palillos que necesita para comer, en caso contrario se quedará en espera*
-´´´´Java
+````Java
     private void estaComiendo() {
     	smf.getPalillos().remove((Integer)cubiertoIzquierda);//El filósofo empieza a comer
     	smf.getPalillos().remove((Integer)cubiertoDerecha);
@@ -119,16 +119,16 @@ public class Filosofo extends Thread {
     	smf.getPalillos().add(cubiertoIzquierda);
     	estaPensando(); //El filósofo vuelve a pensar
     }
-´´´´
+````
 *Se ejecuta una vez comprobado que tiene los palillos disponibles, generará una espera aleatoria y despues volverá a ejecutar el método estaPensando()*  
-´´´´Java
+````Java
     @Override
     public void run() {
     	entraCena();
     }
-´´´´
+````
 *Método heredado de la clase Thread necesario para iniciar el hilo*
-´´´´Java
+````Java
 public class Cena {
     private final Mesa smf;
     String[] filosofos;
@@ -147,9 +147,9 @@ public class Cena {
     	}
     }
 }
-´´´´
+````
 *Clase simple para simular el inicio de una cena*
-´´´´Java
+````Java
 public class Main {
     /**
      *
@@ -161,5 +161,5 @@ public class Main {
     	cena.empieza();//Iniciamos la cena
     }
 }
-´´´´
+````
 *Clase con el método main que hace una llamada a la clase Cena, introduciendo en ella un array de Strings con los nombres de los filósofos (el número de filósofos debrería ser siempre superior a 3)*
